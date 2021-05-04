@@ -2,10 +2,12 @@
 
 namespace Fira\Infrastructure\Database\InMemory;
 
+use Fira\App\DependencyContainer;
 use Fira\Domain\Entity\Entity;
 use Fira\Domain\Entity\LocationEntity;
 use Fira\Domain\Utility\Pager;
 use Fira\Domain\Utility\Sort;
+use JetBrains\PhpStorm\Pure;
 use RuntimeException;
 
 class LocationRepository implements \Fira\Domain\Repository\LocationRepository
@@ -64,7 +66,7 @@ class LocationRepository implements \Fira\Domain\Repository\LocationRepository
         unset($this->entities[$id]);
     }
 
-    public function getNextid(): int
+    #[Pure] public function getNextid(): int
     {
         $id = 0;
         foreach ($this->entities as $entity) {
@@ -74,5 +76,14 @@ class LocationRepository implements \Fira\Domain\Repository\LocationRepository
         }
 
         return ++$id;
+    }
+
+    public function search(array $searchParams, Pager $pager, Sort $sort): array
+    {
+        $name = '';
+        $where = '';
+        if ($searchParams['name'] ?? null) {
+            $where = "name = {searchParams['name]}";
+        }
     }
 }

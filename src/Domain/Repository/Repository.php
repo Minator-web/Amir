@@ -17,4 +17,5 @@ interface Repository
     public function delete(int $id): void;
 
     public function getNextid(): int;
+
 }

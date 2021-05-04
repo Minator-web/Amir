@@ -10,8 +10,8 @@ final class LocationEntityTest extends TestCase
     public function testSetterAndGetters(): void
     {
         $locationEntity = new LocationEntity();
-        $locationEntity->setName('Amin');
+        $locationEntity->setName('Amir');
 
-        $this->assertEquals('Amin', $locationEntity->getName());
+        $this->assertEquals('Amir', $locationEntity->getName());
     }
 }
