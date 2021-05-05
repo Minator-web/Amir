@@ -48,12 +48,20 @@ class LocationRepository implements \Fira\Domain\Repository\LocationRepository
         $entity = new LocationEntity();
         $entity
             ->$this->getNextid($entity);
-        return;
     }
 
     public function save(): void
     {
-        // TODO: Implement save() method.
+        $rowData = DependencyContainer::getLocationRepository()->save();
+        $entity = new LocationEntity();
+        $entity
+            ->setName($rowData['name'])
+            ->setCategory($rowData['category'])
+            ->setDescription($rowData['Description'])
+            ->setLatitude($rowData['latitude'])
+            ->setLongitude($rowData['longitude'])
+            ->setCreatedAt(new DateTimeImmutable($rowData['created_at']));
+
     }
 
     public function getById(int $id): Entity
@@ -98,7 +106,10 @@ class LocationRepository implements \Fira\Domain\Repository\LocationRepository
 
     public function getNextid(): int
     {
-        // TODO: Implement getNextid() method.
+        $rowData = DependencyContainer::getLocationRepository()->getNextid();
+        $entity = new LocationEntity();
+        if(id($entity));
+        return $entity;
     }
 
     public function search(array $searchParams, Pager $pager, Sort $sort): array

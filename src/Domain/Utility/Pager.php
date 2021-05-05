@@ -46,8 +46,16 @@ class Pager
 
     }
 
-    public function getTotalPages(): int
+
+    public function setTotalRows(): int
     {
 
+
+    }
+
+
+    public function getTotalPages(): int
+    {
+        
     }
 }
