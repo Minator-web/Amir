@@ -6,7 +6,7 @@ use Fira\Domain\Entity\UserEntity;
 use Fira\Domain\Repository\LocationRepository;
 use Fira\Domain\Repository\UserRepository;
 use Fira\Infrastructure\Database\Sql\AbstractSqlDriver;
-use Fira\Infrastructure\Database\Sql\Mysql\MySqlDriver;
+use Fira\Infrastructure\Database\Sql\MySql\MySqlDriver;
 use RuntimeException;
 
 final class DependencyContainer
@@ -35,7 +35,7 @@ final class DependencyContainer
     public static function getLocationRepository(): LocationRepository
     {
         if (!isset(self::$dependencies['locationRepo'])) {
-            self::$dependencies['locationRepo'] = new \Fira\Infrastructure\Database\Sql\Mysql\LocationRepository();
+            self::$dependencies['locationRepo'] = new \Fira\Infrastructure\Database\Sql\MySql\LocationRepository();
         }
 
         return self::$dependencies['locationRepo'];

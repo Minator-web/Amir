@@ -1,12 +1,13 @@
 <?php
 
 
-namespace Fira\Infrastructure\Database\Sql\Mysql;
+namespace Fira\Infrastructure\Database\Sql\MySql;
 
 
 use Fira\Infrastructure\Database\Sql\AbstractSqlDriver;
 use mysqli;
 use RuntimeException;
+use function PHPUnit\Framework\throwException;
 
 class MySqlDriver extends AbstractSqlDriver
 {
@@ -48,16 +49,60 @@ sql;
 
     public function update(string $query): bool
     {
-        // TODO: Implement update() method.
+        if (empty($table_name)) {
+            throw new RuntimeException('Table is empty');
+        }
+        if (empty($columns)) {
+            throw new RuntimeException('No columns inserted');
+        }
+        if (empty($value)) {
+            throw new RuntimeException('No values inserted');
+        }
+        if (empty($condition)) {
+            throw new RuntimeException('Condition should not be empty');
+        }
+        $query = <<<sql
+UPDATE {$table_name} SET {$condition} SET {$value} WHERE {$condition}
+sql;
+        $mysqlResult = $this->connection->query($query);
+        if ($mysqlResult == true) {
+            return true;
+        }
     }
-
     public function delete(string $query): bool
     {
-        // TODO: Implement delete() method.
+        if (empty($table_name)) {
+            throw new RuntimeException('Table is empty');
+        }
+        if (empty($condition)) {
+            throw new RuntimeException('Condition should not be empty');
+        }
+        $query = <<<sql
+DELETE FROM {$table_name} WHERE {$condition};
+sql;
+        $mysqlResult = $this->connection->query($query);
+        if ($mysqlResult == true) {
+            return true;
+        }
     }
 
     public function insert(string $query): bool
     {
-        // TODO: Implement insert() method.
+        if (empty($values)) {
+            throw new RuntimeException('No values inserted');
+        }
+
+        if (empty($columns)) {
+            throw new RuntimeException('No columns inserted');
+        }
+
+        $query = <<<sql
+INSERT INTO {$columns} VALUES {$values};
+sql;
+        $mysqlResult = $this->connection->query($query);
+        if ($mysqlResult == true) {
+            return true;
+        }
+
     }
 }

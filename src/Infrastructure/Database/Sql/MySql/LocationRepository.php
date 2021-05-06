@@ -1,6 +1,6 @@
 <?php
 
-namespace Fira\Infrastructure\Database\Sql\Mysql;
+namespace Fira\Infrastructure\Database\Sql\MySql;
 
 use DateTimeImmutable;
 use Fira\App\DependencyContainer;
